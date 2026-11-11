@@ -9,7 +9,7 @@ import {
   DEMO_AUDIT_LOGS,
   STATES_AND_DISTRICTS
 } from '../data/demoComplaints';
-import { getStoredComplaints, updateComplaintRecord } from '../utils/storage';
+import { getStoredComplaints, updateComplaintRecord, resetDemoDataToDefault } from '../utils/storage';
 import { 
   BarChart, 
   Bar, 
@@ -199,11 +199,53 @@ export const Package3Dashboard: React.FC = () => {
               <Download className="w-3 h-3 text-amber-400" />
               <span>{language === 'hi' ? 'डेटा निर्यात' : 'Export'}</span>
             </button>
+
+            <button
+              type="button"
+              onClick={() => {
+                const refreshed = resetDemoDataToDefault();
+                setComplaints(refreshed);
+                setExportNotice(
+                  language === 'hi' ? 'राष्ट्रीय डेमो डेटाबेस रीसेट हुआ!' : 'National demo database reset to default!'
+                );
+                setTimeout(() => setExportNotice(null), 3000);
+              }}
+              className="px-2.5 py-1 rounded bg-slate-800 hover:bg-slate-700 text-slate-400 hover:text-slate-200 border border-slate-700 inline-flex items-center gap-1 text-[11px]"
+              title="Reset sample records to default"
+            >
+              <span>{language === 'hi' ? 'रीसेट' : 'Reset'}</span>
+            </button>
           </div>
         </div>
       </div>
 
       <div className="max-w-7xl mx-auto px-4 py-6 sm:px-6 lg:px-8">
+        
+        {/* Scoped Role Simulation Indicator */}
+        {selectedRole !== 'National Admin' && (
+          <div className="mb-5 p-3.5 bg-amber-50 border border-amber-300 rounded-xl flex items-center justify-between text-xs text-amber-950 shadow-2xs animate-fadeIn">
+            <div className="flex items-center gap-2">
+              <Key className="w-4 h-4 text-amber-700 shrink-0" />
+              <span>
+                <strong>{selectedRole}</strong> {language === 'hi' ? 'दृष्टिकोण सक्रिय:' : 'Scoped View Active:'}{' '}
+                {selectedRole === 'State Admin (UP)'
+                  ? (language === 'hi' ? 'उत्तर प्रदेश राज्यीय शाखा, संबद्ध 8 मंडल एवं 42 मामलों की अधिकृत निगरानी।' : 'Scoped to Uttar Pradesh chapter, 8 divisions, and 42 cases.')
+                  : selectedRole === 'District Admin (Kanpur)'
+                  ? (language === 'hi' ? 'कानपुर नगर औद्योगिक विवाद निवारण एवं क्षेत्रीय सुनवाई।' : 'Scoped to Kanpur Nagar industrial dispute redressal.')
+                  : (language === 'hi' ? 'विधिक प्रकोष्ठ – श्रमायुक्त नोटिस, श्रम न्यायालय एवं मध्यस्थता समझौते।' : 'Scoped to Legal Cell — conciliations, notices, and tribunal representations.')
+                }
+              </span>
+            </div>
+            <button
+              type="button"
+              onClick={() => setSelectedRole('National Admin')}
+              className="text-amber-800 hover:text-amber-950 underline font-semibold text-[11px] shrink-0 ml-2"
+            >
+              {language === 'hi' ? 'राष्ट्रीय दृश्य पर लौटें (Reset to All-India)' : 'Reset to National'}
+            </button>
+          </div>
+        )}
+
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
           
           {/* Sidebar Menu (3 Columns) */}
@@ -323,7 +365,7 @@ export const Package3Dashboard: React.FC = () => {
                       <span className="text-xs text-blue-900 font-semibold font-mono">Top 7 States</span>
                     </div>
 
-                    <div className="h-64 w-full">
+                    <div className="h-64 w-full min-w-0">
                       <ResponsiveContainer width="100%" height="100%">
                         <BarChart data={stateChartData} margin={{ top: 10, right: 10, left: -20, bottom: 0 }}>
                           <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#e2e8f0" />
@@ -348,7 +390,7 @@ export const Package3Dashboard: React.FC = () => {
                       </div>
                     </div>
 
-                    <div className="h-64 w-full flex items-center justify-center">
+                    <div className="h-64 w-full min-w-0 flex items-center justify-center">
                       <ResponsiveContainer width="100%" height="100%">
                         <PieChart>
                           <Pie
@@ -392,7 +434,7 @@ export const Package3Dashboard: React.FC = () => {
                     </button>
                   </div>
 
-                  <div className="h-60 w-full">
+                  <div className="h-60 w-full min-w-0">
                     <ResponsiveContainer width="100%" height="100%">
                       <LineChart data={monthlyTrendData} margin={{ top: 10, right: 10, left: -20, bottom: 0 }}>
                         <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#e2e8f0" />

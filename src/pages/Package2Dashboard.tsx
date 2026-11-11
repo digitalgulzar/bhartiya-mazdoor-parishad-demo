@@ -9,6 +9,7 @@ import {
 import { 
   getStoredComplaints, 
   updateComplaintRecord,
+  resetDemoDataToDefault,
   getStoredAdminAuth,
   setStoredAdminAuth,
   AdminAuth
@@ -434,13 +435,31 @@ export const Package2Dashboard: React.FC = () => {
 
       {/* Complaints Table */}
       <div className="bg-white rounded-xl border border-slate-200 overflow-hidden shadow-xs">
-        <div className="p-4 border-b border-slate-100 flex items-center justify-between">
+        <div className="p-4 border-b border-slate-100 flex items-center justify-between flex-wrap gap-2">
           <h3 className="text-sm font-bold text-slate-900">
             {language === 'hi' ? 'प्राप्त शिकायतें सूची (Live Table)' : 'Grievance List'}
           </h3>
-          <span className="text-xs text-slate-500 font-mono">
-            {filtered.length} {language === 'hi' ? 'प्रकरण मिले' : 'records found'}
-          </span>
+          <div className="flex items-center gap-3">
+            <span className="text-xs text-slate-500 font-mono">
+              {filtered.length} {language === 'hi' ? 'प्रकरण मिले' : 'records found'}
+            </span>
+            <button
+              type="button"
+              onClick={() => {
+                const refreshed = resetDemoDataToDefault();
+                setComplaints(refreshed);
+                setShowNotificationToast(
+                  language === 'hi' ? 'डेमो शिकायतें डिफ़ॉल्ट पर रीसेट कर दी गईं!' : 'Demo records reset to default seeds!'
+                );
+                setTimeout(() => setShowNotificationToast(null), 3500);
+              }}
+              className="text-[11px] text-slate-500 hover:text-blue-900 font-semibold inline-flex items-center gap-1 border border-slate-200 hover:bg-slate-50 px-2.5 py-1 rounded transition-colors"
+              title="Reset sample records to default"
+            >
+              <RefreshCw className="w-3 h-3 text-slate-400" />
+              <span>{language === 'hi' ? 'डेटा रीसेट' : 'Reset Seed Data'}</span>
+            </button>
+          </div>
         </div>
 
         <div className="overflow-x-auto">

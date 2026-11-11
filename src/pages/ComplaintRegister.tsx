@@ -276,11 +276,22 @@ export const ComplaintRegister: React.FC = () => {
             <div className="flex flex-col sm:flex-row items-center gap-3 pt-2">
               <Link
                 to={`/complaints/track?id=${submittedComplaint.id}`}
-                className="w-full sm:w-1/2 py-3 px-4 rounded-xl bg-blue-900 hover:bg-blue-800 text-white font-bold text-center text-sm transition-all shadow-xs flex items-center justify-center gap-2"
+                className="w-full sm:w-1/3 py-3 px-4 rounded-xl bg-blue-900 hover:bg-blue-800 text-white font-bold text-center text-sm transition-all shadow-xs flex items-center justify-center gap-2"
               >
                 <span>{t.complaint.trackNowBtn}</span>
                 <ArrowRight className="w-4 h-4" />
               </Link>
+
+              <button
+                type="button"
+                onClick={() => window.print()}
+                className="w-full sm:w-1/3 py-3 px-4 rounded-xl bg-slate-800 hover:bg-slate-700 text-white font-semibold text-center text-sm transition-all border border-slate-700 flex items-center justify-center gap-2"
+                title="Print Demo Receipt"
+              >
+                <Printer className="w-4 h-4 text-amber-400" />
+                <span>{language === 'hi' ? 'रसीद प्रिंट (Print)' : 'Print Receipt'}</span>
+              </button>
+
               <button
                 type="button"
                 onClick={() => {
@@ -294,7 +305,7 @@ export const ComplaintRegister: React.FC = () => {
                   setUploadedFiles([]);
                   setConsentGiven(false);
                 }}
-                className="w-full sm:w-1/2 py-3 px-4 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-800 font-semibold text-center text-sm transition-all border border-slate-200"
+                className="w-full sm:w-1/3 py-3 px-4 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-800 font-semibold text-center text-sm transition-all border border-slate-200"
               >
                 {t.complaint.newComplaintBtn}
               </button>
