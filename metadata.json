@@ -1,0 +1,6 @@
+{
+  "name": "Bhartiya Mazdoor Parishad – Management Portal Demo",
+  "description": "Interactive demonstration website, labour complaint portal, and multi-tier national management system for Bhartiya Mazdoor Parishad, crafted by Digital Gulzar Marketing Services.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
