@@ -21,15 +21,16 @@ import {
   ExternalLink
 } from 'lucide-react';
 import { LEADERSHIP_PROFILES, LABOUR_ARTICLES, ACTIVITIES_DATA, NEWS_UPDATES } from '../data/organizationContent';
+import { 
+  heroWorkers as heroImagePath, 
+  rightsAwareness as rightsImagePath, 
+  activityConvention as activityImagePath, 
+  workerSupport as supportImagePath 
+} from '../assets/images';
 
 export const Home: React.FC = () => {
   const { language, t } = useLanguage();
   const { hasComplaintPortal, setActivePackage } = usePackage();
-
-  const heroImagePath = '/src/assets/images/bmp_hero_workers_1794406322943.jpg';
-  const rightsImagePath = '/src/assets/images/bmp_rights_awareness_1794406322822.jpg';
-  const activityImagePath = '/src/assets/images/bmp_activity_convention_1794406322865.jpg';
-  const supportImagePath = '/src/assets/images/bmp_worker_support_1794406322960.jpg';
 
   const services = [
     {
@@ -215,9 +216,9 @@ export const Home: React.FC = () => {
                   className="w-full h-full object-cover object-center group-hover:scale-102 transition-transform duration-500"
                   referrerPolicy="no-referrer"
                   onError={(e) => {
-                    // Styled CSS fallback per §3.E
-                    e.currentTarget.style.display = 'none';
-                    e.currentTarget.parentElement?.classList.add('bg-slate-900', 'flex', 'items-center', 'justify-center', 'text-white', 'p-6');
+                    if (e.currentTarget.src !== window.location.origin + '/images/bmp_hero_workers.jpg') {
+                      e.currentTarget.src = '/images/bmp_hero_workers.jpg';
+                    }
                   }}
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-slate-950/20 to-transparent flex items-end p-5">
@@ -350,12 +351,17 @@ export const Home: React.FC = () => {
           </div>
 
           <div className="lg:col-span-6">
-            <div className="rounded-2xl overflow-hidden border border-slate-200 shadow-md aspect-4/3">
+            <div className="rounded-2xl overflow-hidden border border-slate-200 shadow-md aspect-4/3 bg-slate-100">
               <img
                 src={supportImagePath}
                 alt="Labour counselor discussing worker grievances with respect"
                 className="w-full h-full object-cover"
                 referrerPolicy="no-referrer"
+                onError={(e) => {
+                  if (e.currentTarget.src !== window.location.origin + '/images/bmp_worker_support.jpg') {
+                    e.currentTarget.src = '/images/bmp_worker_support.jpg';
+                  }
+                }}
               />
             </div>
           </div>
@@ -475,12 +481,17 @@ export const Home: React.FC = () => {
 
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
           <div className="lg:col-span-5">
-            <div className="rounded-2xl overflow-hidden border border-slate-200 shadow-md aspect-4/3">
+            <div className="rounded-2xl overflow-hidden border border-slate-200 shadow-md aspect-4/3 bg-slate-100">
               <img
                 src={activityImagePath}
                 alt="Worker convention and delegates"
                 className="w-full h-full object-cover"
                 referrerPolicy="no-referrer"
+                onError={(e) => {
+                  if (e.currentTarget.src !== window.location.origin + '/images/bmp_activity_convention.jpg') {
+                    e.currentTarget.src = '/images/bmp_activity_convention.jpg';
+                  }
+                }}
               />
             </div>
           </div>

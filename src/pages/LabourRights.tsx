@@ -3,6 +3,7 @@ import { useLanguage } from '../context/LanguageContext';
 import { usePackage } from '../context/PackageContext';
 import { LABOUR_ARTICLES } from '../data/organizationContent';
 import { Link } from 'react-router-dom';
+import { rightsAwareness as rightsImagePath } from '../assets/images';
 import { 
   BookOpen, 
   Scale, 
@@ -20,8 +21,6 @@ export const LabourRights: React.FC = () => {
   const { language } = useLanguage();
   const { hasComplaintPortal } = usePackage();
   const [expandedId, setExpandedId] = useState<string | null>('art-1');
-
-  const rightsImagePath = '/src/assets/images/bmp_rights_awareness_1794406322822.jpg';
 
   const faqs = [
     {
@@ -71,6 +70,11 @@ export const LabourRights: React.FC = () => {
             alt="Labour rights training guide and handbook session"
             className="w-full h-full object-cover"
             referrerPolicy="no-referrer"
+            onError={(e) => {
+              if (e.currentTarget.src !== window.location.origin + '/images/bmp_rights_awareness.jpg') {
+                e.currentTarget.src = '/images/bmp_rights_awareness.jpg';
+              }
+            }}
           />
         </div>
         <div className="lg:col-span-7 space-y-4 text-xs sm:text-sm">

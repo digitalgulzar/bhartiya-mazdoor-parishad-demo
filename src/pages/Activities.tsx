@@ -3,10 +3,10 @@ import { useLanguage } from '../context/LanguageContext';
 import { ACTIVITIES_DATA } from '../data/organizationContent';
 import { Calendar, MapPin, Users, Award, ArrowRight } from 'lucide-react';
 import { Link } from 'react-router-dom';
+import { activityConvention as activityImagePath } from '../assets/images';
 
 export const Activities: React.FC = () => {
   const { language } = useLanguage();
-  const activityImagePath = '/src/assets/images/bmp_activity_convention_1794406322865.jpg';
 
   return (
     <div className="max-w-5xl mx-auto px-4 py-12 sm:px-6 lg:px-8 space-y-12">
@@ -34,6 +34,11 @@ export const Activities: React.FC = () => {
           alt="Bhartiya Mazdoor Parishad National Convention"
           className="w-full h-full object-cover"
           referrerPolicy="no-referrer"
+          onError={(e) => {
+            if (e.currentTarget.src !== window.location.origin + '/images/bmp_activity_convention.jpg') {
+              e.currentTarget.src = '/images/bmp_activity_convention.jpg';
+            }
+          }}
         />
         <div className="absolute inset-0 bg-gradient-to-t from-slate-950/85 via-slate-950/30 to-transparent flex items-end p-6 sm:p-8">
           <div className="text-white space-y-2">
